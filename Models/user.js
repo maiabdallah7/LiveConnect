@@ -75,13 +75,6 @@ const userSchema = new mongoose.Schema({
     refreshToken: {
         type: String
     },
-    isVerified: {
-        type: Boolean,
-        default: false,
-    },
-    OTP: {
-        type: String,
-    },
     
     followers: {
         type: {
