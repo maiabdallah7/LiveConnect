@@ -36,8 +36,39 @@ const login = async (req, res) => {
     }
 };
 
+// Get all users
+const getAllUsers = async(req,res) =>{
+    try{
+        const users = await User.find(); // Fetch all users
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'No users found' });
+        }
+        res.status(200).json(users); // Return all users
+    }catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// User Logout
+const logout = async (req, res) => {
+    try {
+        const { refreshToken } = req.body; // Assuming refreshToken is sent in the request body
+
+        // Delete the refresh token from the database (if stored)
+        // This step depends on where you store the refresh tokens
+        await authService.invalidateRefreshToken(refreshToken); 
+
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 // Export your functions
 module.exports = {
     register,
     login,
+    getAllUsers,
+    logout,
 };
