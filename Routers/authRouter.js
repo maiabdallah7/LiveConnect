@@ -1,21 +1,11 @@
 const express = require('express');
-
 const authController = require('../Controllers/authController');
-const isAuth = require('../middlewares/isAuth');
+const isAuth = require('../Middleware/isAuth');
 
 const router = express.Router();
 
-/*router.get('/getAll', authController.getAllUsers);
 router.post('/register', authController.register);
-router.post('/verifyRegisterOTP', authController.verifyRegisterOTP);
 router.post('/login', authController.login);
-router.post('/resetPassword', authController.resetPassword);
-router.post('/verifyPasswordResetOTP', authController.verifyPasswordResetOTP);
-router.post('/setNewPassword', authController.setNewPassword);
-
-/*router.post('/facebooklogin', authController.facebookLogin); 
-router.post('/googlelogin', authController.googleLogin);*/
-
-router.post('/refreshToken',authController.refreshToken);
-
+router.post('/users', authController.getAllUsers);
+router.post('/logout',authController.logout)
 module.exports = router;
