@@ -7,6 +7,7 @@ app.use(express.json());
 
 const authRouter = require('./Routers/authRouter')
 const postRouter = require('./Routers/postRouter')
+const userRouter = require('./Routers/userRouter')
 
 const PORT = process.env.PORT || 3000;
 const DATABASE = process.env.DATABASE;
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/user', authRouter);
 app.use('/api/post', postRouter);
+app.use('/api/userinfo', userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
