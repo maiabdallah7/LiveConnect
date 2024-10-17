@@ -52,11 +52,18 @@ const getAllUsers = async(req,res) =>{
 // User Logout
 const logout = async (req, res) => {
     try {
-        const { refreshToken } = req.body; // Assuming refreshToken is sent in the request body
+        const userId = req.userId;
+        const user = await User.findById(userId);
 
-        // Delete the refresh token from the database (if stored)
-        // This step depends on where you store the refresh tokens
-        await authService.invalidateRefreshToken(refreshToken); 
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found',
+            });
+        }
+        const { refreshToken } = req.body; 
+        user.refreshToken = null;
+        await user.save();
 
         res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
