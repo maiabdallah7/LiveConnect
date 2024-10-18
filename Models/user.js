@@ -9,12 +9,12 @@ const userSchema = new mongoose.Schema({
         enum: ['User', 'Admin'],
         default: 'User',
     },
-    firstName: {
+    Name: {
         type: String,
         required: true,
         trim: true,
     },
-    lastName: {
+    userName: {
         type: String,
         required: true,
         trim: true,
@@ -37,34 +37,6 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character',
         },
-    },
-    dateOfBirth: {
-        type: Date,
-        required: true,
-        validate: {
-            validator: function (value) {
-                // Validate date format (YYYY-MM-DD)
-                if (!moment(value, 'YYYY-MM-DD', true).isValid()) {
-                    return false;
-                }
-
-                const tenYearsAgo = moment().subtract(10, 'years');
-                if (moment(value).isAfter(tenYearsAgo)) {
-                    return false;
-                }
-
-                return moment(value).isSameOrBefore(moment());
-            },
-            message: 'Please enter a valid date of birth (YYYY-MM-DD) and ensure you are at least 10 years old.',
-        },
-    },
-    country: {
-        type: String,
-    },
-    gender: {
-        type: String,
-        enum: ['Male', 'Female'],
-        required: false,
     },
     bio: {
         type: String,
