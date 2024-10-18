@@ -6,9 +6,9 @@ const hashing = require('../Middleware/hashing')
 const register = async (req, res) => {
     //console.log(req.body);  // Log request body
     try {
-        const { firstName, lastName, email, password, dateOfBirth } = req.body;
+        const { Name, userName, email, password } = req.body;
         const hashedPassword = await hashing.hashPassword(password);
-        const newUser = new User({ firstName, lastName, email, password: hashedPassword, dateOfBirth });
+        const newUser = new User({ Name, userName, email, password: hashedPassword });
         
         await newUser.save();
         const token = await authService.generateToken({ userId: newUser._id });
